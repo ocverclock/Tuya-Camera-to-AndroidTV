@@ -18,7 +18,6 @@
 | MP4 avec 3–5 s de retard | Tampon du lecteur / pipeline | Comparer à MSE optimisé |
 | MSE très saccadé | Coût/transit/horodatages possibles | 960 pixels, 12 ips, profil rapide, mesurer |
 | « Humain détecté » absent de HA | Événement non encore vérifié | Inspecter entités/événements avant automatisation |
-
 | go2rtc `frame.jpeg` répond HTTP 200 mais 0 octet | Absence de JPEG exploitable ; caméra ou source non décodable | Vérifier taille et type MIME, comparer source H.264 et flux MJPEG dédié, puis le réveil solaire |
 | Passerelle Frigate `latest.jpg` retourne 503 et `snapshot not ready (ValueError)` | Extraction d'image échouée, malgré HTTP/MQTT connectés | Comparer JPEG direct `1984` et proxy `8057` ; inspecter le `SNAPSHOT_STREAM` effectif |
 | Popup reçue via MQTT mais « No image » | Notifications opérationnelles, JPEG proxy indisponible | Réparer JPEG indépendamment du message MQTT |

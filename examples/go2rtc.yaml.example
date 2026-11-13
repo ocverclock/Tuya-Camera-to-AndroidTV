@@ -1,0 +1,21 @@
+# Replace the private camera URI only in your local go2rtc.yaml.
+# This checked-in file must never contain your actual Tuya credentials.
+api:
+  listen: ":1984"
+rtsp:
+  listen: ":8554"
+webrtc:
+  listen: ":8555"
+
+streams:
+  camera_action:
+    - "tuya://GENERATED_PRIVATE_URL_REPLACE_LOCALLY"
+  camera_action_tv:
+    - "ffmpeg:camera_action#video=h264_fast#raw=-vf fps=12,scale=960:-2,setpts=N/(12*TB)"
+
+ffmpeg:
+  h264_fast: "-c:v libx264 -g 12 -preset ultrafast -tune zerolatency -profile:v baseline -pix_fmt yuv420p"
+
+log:
+  level: info # DEBUG may expose Tuya account details in logs.
+

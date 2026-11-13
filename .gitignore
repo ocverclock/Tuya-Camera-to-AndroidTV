@@ -1,0 +1,32 @@
+# NEVER COMMIT LOCAL CREDENTIALS
+go2rtc.yaml
+config.json
+.env
+.env.*
+*.key
+*.pem
+*credentials*
+*secrets*
+
+# PRIVATE CAMERA VIDEO / FIRMWARE / DIAGNOSTICS
+*.mp4
+*.mov
+*.jpg
+*.jpeg
+*.png
+*.h264
+*.h265
+*.bin
+*.zip
+*.log
+mtd*
+flash.zip
+firmware/
+dumps/
+backup/
+backups/
+
+__pycache__/
+*.pyc
+.DS_Store
+

@@ -1,0 +1,15 @@
+# Example only. Change the ABSOLUTE path from the Docker daemon's HOST.
+services:
+  go2rtc:
+    image: alexxit/go2rtc:1.9.15
+    container_name: go2rtc
+    restart: unless-stopped
+    ports:
+      - "1984:1984"        # Web UI/API, LAN only
+      - "8554:8554"        # RTSP, LAN only
+      - "8555:8555/tcp"    # WebRTC
+      - "8555:8555/udp"    # WebRTC
+    volumes:
+      # Not Dockge's internal /opt/stacks path; use an actual host file.
+      - /srv/dockge-stacks/go2rtc/go2rtc.yaml:/config/go2rtc.yaml:rw
+

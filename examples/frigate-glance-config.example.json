@@ -1,0 +1,17 @@
+{
+  "mqtt": "mqtt://MQTT_USER:MQTT_PASSWORD@MQTT_HOST:1883",
+  "frigateUrl": "http://FRIGATE_OR_COMPATIBLE_BRIDGE_HOST:5000",
+  "cameras": {
+    "camera_action": "Action solar camera"
+  },
+  "streams": {
+    "camera_action": "camera_action_tv"
+  },
+  "labels": ["person"],
+  "severity": "alerts",
+  "liveVideo": false,
+  "dismissSeconds": 20,
+  "corner": "top-right",
+  "cardScale": 100
+}
+

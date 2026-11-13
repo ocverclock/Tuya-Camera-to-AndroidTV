@@ -1,37 +1,48 @@
-# 04 — Home Assistant : vidéo et événements humains
+# 04 — Home Assistant : vidéo, MQTT et détection humaine
 
-**Statut : À TESTER.** Cette intégration est la prochaine étape du projet, **indépendamment** de la popup Android TV. Ne pas publier de capture ou d'entité HA prétendument validée avant essai.
+**État au 13 novembre 2026 : vidéo RTSP Home Assistant validée ; publication MQTT simulée → popup TCL validée ; vraie alerte humaine Tuya → HA non validée.**
 
-## A. Afficher le flux vidéo dans HA
+## A. Vidéo Home Assistant : validée sur un profil dédié
 
-Prérequis : `camera_action_tv` lisible sur le LAN et go2rtc accessible depuis l'instance Home Assistant. **L'adresse 127.0.0.1 sur HA ne désigne pas le serveur go2rtc externe.**
+La caméra solaire LSC passe par Tuya et un serveur **go2rtc**. Le profil `camera_action_ha_fast` a été testé avec succès dans Home Assistant via Generic Camera / RTSP :
 
-**Option 1 — Generic Camera :** dans Home Assistant, explorer *Paramètres → Appareils et services → Ajouter une intégration → Generic Camera*. Tester comme **source vidéo** l'URI `rtsp://<HOST_IP>:8554/camera_action_tv`, et si nécessaire une source JPEG via l'API go2rtc `http://<HOST_IP>:1984/api/frame.jpeg?src=camera_action_tv` (vérifier cet endpoint sur votre version avant de le déclarer).
+~~~yaml
+streams:
+  camera_action_ha_fast:
+    - "ffmpeg:camera_action#video=h264_fast#raw=-vf fps=10,scale=640:-2,setpts=N/(10*TB)"
+~~~
 
-**Option 2 — WebRTC Camera :** examiner [AlexxIT/WebRTC](https://github.com/AlexxIT/WebRTC) et sa connexion à **une instance go2rtc déjà existante**. Éviter d'installer un deuxième serveur inutile avec conflit de ports.
+URL générique : `rtsp://<HOTE_GO2RTC>:8554/camera_action_ha_fast`. L'adresse locale `127.0.0.1` dans HA ne désigne pas le serveur go2rtc distant.
 
-**Tests à documenter :** vignette, vidéo animée, latence, reprise après redémarrage, CPU et comportement de veille. Une caméra solaire ne doit pas être sollicitée constamment par un tableau de bord resté ouvert.
+**Limite :** le fonctionnement n'est pas garanti après un long sommeil solaire / expiration de session Tuya ; redémarrage de go2rtc déjà nécessaire lors d'un incident.
 
-## B. Obtenir « Humain détecté » depuis Tuya
+## B. MQTT : liaison avec Frigate Glance confirmée
 
-L'application mobile Tuya expose des déclencheurs d'automatisation **« Mouvement détecté »** et **« Humain détecté »** pour notre caméra. **Cela ne prouve pas** que l'intégration officielle Tuya crée un `binary_sensor` ou envoie un événement dans HA.
+La configuration de test contient une passerelle HTTP compatible Frigate (sans Frigate NVR) et la connexion à un broker MQTT Home Assistant. Les journaux TV ont confirmé `frigate ok` et `mqtt connected`. Un appel `mqtt.publish` avec une charge utile Frigate `reviews/new` a ouvert la popup sur TCL.
 
-Étapes de validation :
+Exemple d'action HA générique (adapter le préfixe au paramétrage local de Frigate Glance) :
 
-1. Inventorier les entités de la caméra effectivement visibles dans HA.
-2. Déclencher une vraie détection devant la caméra ; vérifier *Outils de développement → États* et les événements disponibles.
-3. Si rien n'arrive directement, envisager **à titre expérimental** une automatisation Tuya qui bascule un appareil Tuya auxiliaire visible dans HA, puis détecter sa transition. Ce contournement n'a pas encore été essayé.
-4. Après validation seulement, créer un déclencheur HA avec anti-rebond, événement « début/fin », et durée de notification.
-5. Traduire l'événement vers le format **Frigate-compatible MQTT/API** attendu par Frigate Glance : un simple texte MQTT `person` ne suffit pas.
+~~~yaml
+action: mqtt.publish
+data:
+  topic: lsc_glance/reviews
+  qos: 1
+  retain: false
+  payload: '{"type":"new","after":{"id":"test-001","camera":"camera_action","severity":"alert","data":{"objects":["person"],"detections":[]}}}'
+~~~
 
-## C. Critères d'acceptation
+**Non validé :** le message `end` n'a pas fermé la fenêtre comme prévu. La passerelle JPEG répond encore HTTP 503 lors du dernier test. Voir [05 — Frigate Glance](05-cleanyourtv-glance.md).
 
-- Entité caméra réelle et lisible depuis le tableau de bord.
-- Aucune deuxième instance go2rtc non désirée.
-- Événement « humain » réellement observé, et non supposé.
-- Une alerte par passage, durée de présence, fermeture automatique.
-- Pas de réduction significative de l'autonomie batterie.
-- Aucun port WAN ouvert.
+## C. Détection humaine Tuya : toujours à relever dans HA
 
-Voir [05 — CleanYourTV / Frigate Glance](05-cleanyourtv-glance.md) pour la cible d'affichage ; cette partie **n'est pas encore livrée**.
+L'application mobile Tuya de cette caméra propose « Détection par IA », « Détection de forme humaine », « Notification uniquement pour les messages de forme humaine », sensibilité et durée d'enregistrement 15/30 s. **Un push dans Tuya n'implique pas qu'une entité `binary_sensor` ou `event` soit disponible dans l'intégration HA.**
 
+Prochaine étape : examiner les entités de la caméra dans *Paramètres → Appareils et services → Tuya* et *Outils de développement → États* pendant une détection humaine réelle. Si l'événement est disponible, construire une automatisation avec anti-rebond, `new` et `end` portant le même ID. Sinon, investiguer une voie de remontée compatible depuis Tuya ; ne pas inventer d'entité.
+
+## Critères d'acceptation restants
+
+- Popup et JPEG visibles pendant SmartTube/Jellyfin.
+- Fermeture automatique fiable, même pour un message final perdu.
+- Détection humaine **réelle** dans HA → TV, sans ouvrir Tuya sur téléphone.
+- Réveil fiable et consommation maîtrisée pour la batterie solaire.
+- Aucune seconde instance go2rtc ni ouverture réseau WAN.

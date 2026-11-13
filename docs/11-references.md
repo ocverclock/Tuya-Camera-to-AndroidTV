@@ -22,3 +22,5 @@ Ces projets sont des **sources distinctes**. Aucun code ou firmware tiers n'est 
 
 Les licences, conditions d'utilisation et compatibilités matérielles sont celles de chacun de ces projets.
 
+
+Pour la personnalisation du lanceur et la restauration des changements ADB : [retour d'expérience TCL](12-cleanyourtv-field-report.md), [documentation officielle des thèmes](https://github.com/Gathin23/cleanyourtv/blob/main/themes/README.md), [script amont de restauration](https://github.com/Gathin23/cleanyourtv/blob/main/tools/restore.sh).

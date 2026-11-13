@@ -15,6 +15,7 @@
 | Option « Humain détecté » dans Tuya mobile | ✅ Observée | Pas une preuve d'événement HA |
 | Détection humaine réellement visible dans HA | ⏳ À tester | Pas d'état/événement capturé |
 | Adaptateur Frigate-compatible | ⏳ À développer | Ni API ni MQTT testés |
+| CleanYourTV com.gathin.tvhome sur TCL Android 9 | ✅ Installé et configuré | Dock 4 apps / nature-calm ; retour d'expérience séparé |
 | Frigate Glance sur la TCL cible | ⏳ Non installé | CleanYourTV existant doit être préservé |
 | Popup par-dessus SmartTube/Jellyfin | ⏳ À tester | RTSP/JPEG à comparer |
 | Décapsulation de TCP/5002 hors ligne | ⚠️ Partiel | H.264 640×360 démontré sur capture |

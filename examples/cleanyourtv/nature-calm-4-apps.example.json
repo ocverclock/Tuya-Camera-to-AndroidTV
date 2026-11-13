@@ -1,0 +1,32 @@
+{
+  "_note": "PUBLIC EXAMPLE ONLY. Remove this annotation if the upstream theme tool rejects unknown keys. Not an export from the reference TCL. Requires the apps and your own licensed wallpapers.",
+  "dock_apps": [
+    "org.smarttube.stable",
+    "com.ibopro.player",
+    "org.jellyfin.androidtv",
+    "net.oqee.androidtv.store"
+  ],
+  "fill_dock": false,
+  "columns": 4,
+  "rows_below_dock": 1,
+  "background_color": "#05070C",
+  "wallpaper": true,
+  "wallpaper_rotation_minutes": 5,
+  "wallpaper_order": "shuffle",
+  "wallpaper_captions": true,
+  "wallpaper_true_color": true,
+  "wallpaper_dim": 14,
+  "cinematic_home": false,
+  "dock_title": false,
+  "dock_glass": true,
+  "dock_opacity": 40,
+  "dock_even_padding": true,
+  "icon_only_buttons": true,
+  "icon_only_inputs": true,
+  "ambient_glow": false,
+  "app_glow": false,
+  "fade_rows": true,
+  "focus_overshoot": false,
+  "advanced_effects": true
+}
+

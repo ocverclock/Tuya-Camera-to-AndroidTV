@@ -18,6 +18,8 @@
 | Étudier le flux TCP local et le firmware | [06 — Recherche Anyka](docs/06-anyka-local-research.md) | Expérimental |
 | Étudier la veille et les versions de firmware | [07 — Énergie / firmware](docs/07-power-and-firmware.md) | Partiel |
 
+| **Reproduire et personnaliser CleanYourTV seul** | [12 — Retour d'expérience TCL](docs/12-cleanyourtv-field-report.md) | **Validé sur TCL** |
+
 Autres ressources : [erreurs rencontrées](docs/08-troubleshooting.md), [validations](docs/09-validation-matrix.md), [sécurité](docs/10-security.md), [projets similaires](docs/11-references.md).
 
 ## Matériel du retour d'expérience

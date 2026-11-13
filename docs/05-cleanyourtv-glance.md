@@ -2,6 +2,8 @@
 
 **Statut : ARCHITECTURE EN PRÉPARATION, non testée sur la télévision cible.**
 
+**La configuration CleanYourTV du téléviseur existe déjà et a été validée indépendamment.** Les détails sont dans le [retour d'expérience TCL](12-cleanyourtv-field-report.md) : installation ADB, dock quatre apps, nature-calm, arbitrages du halo, debloat, sauvegardes. Le présent chapitre traite seulement de la **future extension Frigate Glance** ; ne pas confondre les deux projets.
+
 Objectif : une **petite carte caméra** affichée automatiquement pendant SmartTube/Jellyfin lorsqu'une personne est détectée, puis disparaissant quelques secondes après. Le lanceur **CleanYourTV est déjà configuré et doit rester intact** : pas de remise à zéro, réinstallation ou écrasement du thème/dock.
 
 ## Ce que fait l'extension

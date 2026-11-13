@@ -14,6 +14,7 @@
 | Run go2rtc under Docker and Dockge | [02 — Docker/Dockge](docs/02-docker-dockge.md) | Tested |
 | Fix a black or lagging H.264 stream | [03 — FFmpeg fix](docs/03-ffmpeg-black-video.md) | Tested |
 | Show the video in Home Assistant | [04 — Home Assistant](docs/04-home-assistant.md) | To test |
+| Install and customize CleanYourTV itself | [TCL CleanYourTV field report](docs/en/cleanyourtv-field-report.md) / [French detailed guide](docs/12-cleanyourtv-field-report.md) | Tested on TCL |
 | Trigger an overlay in CleanYourTV / Frigate Glance | [05 — Android TV](docs/05-cleanyourtv-glance.md) | To develop/test |
 | Investigate Anyka firmware / TCP 5002 / microSD | [06 — Experimental research](docs/06-anyka-local-research.md) | Partial |
 | Understand battery sleep and firmware-update risks | [07 — Power and firmware](docs/07-power-and-firmware.md) | Partial |
